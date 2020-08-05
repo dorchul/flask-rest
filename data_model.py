@@ -1,5 +1,6 @@
 import datetime
 import logging
+import threading
 import uuid
 from typing import Dict
 
@@ -45,40 +46,46 @@ class StorageManager:
     def __init__(self):
         self._users: Dict[str, User] = {}
         self._messages: Dict[str, Message] = {}
+        self._lock = threading.Lock()
 
     def get_user(self, user_id: str):
-        return self._users[user_id]
+        with self._lock:
+            return self._users[user_id]
 
     def create_user(self):
         user_id = uuid.uuid4().hex[:6]
         logger.debug('Creating user with id: %s', user_id)
         user = User(user_id)
-        self._users[user_id] = user
+        with self._lock:
+            self._users[user_id] = user
         return user
 
     def read_message(self, message_id: str):
-        message = self._messages[message_id]
-        if message.message_id in message.receiver.unread:
-            del message.receiver.unread[message.message_id]
-            message.receiver.read[message_id] = message
-        return message
+        with self._lock:
+            message = self._messages[message_id]
+            if message.message_id in message.receiver.unread:
+                del message.receiver.unread[message.message_id]
+                message.receiver.read[message_id] = message
+            return message
 
     def create_message(self, sender_id, receiver_id, subject, body):
-        sender = self._users[sender_id]
-        receiver = self._users[receiver_id]
-        message_id = uuid.uuid4().hex[:6]
-        logger.debug('Creating message with id: %s', message_id)
-        message = Message(message_id, sender, receiver, subject, body)
-        self._messages[message_id] = message
-        self._users[sender_id].sent[message_id] = message
-        self._users[receiver_id].unread[message_id] = message
+        with self._lock:
+            sender = self._users[sender_id]
+            receiver = self._users[receiver_id]
+            message_id = uuid.uuid4().hex[:6]
+            logger.debug('Creating message with id: %s', message_id)
+            message = Message(message_id, sender, receiver, subject, body)
+            self._messages[message_id] = message
+            self._users[sender_id].sent[message_id] = message
+            self._users[receiver_id].unread[message_id] = message
         return message
 
     def delete_message(self, message_id: str):
-        message = self._messages[message_id]
-        del self._messages[message_id]
-        del message.sender.sent[message_id]
-        if message_id in message.receiver.read:
-            del message.receiver.read[message_id]
-        if message_id in message.receiver.unread:
-            del message.receiver.unread[message_id]
+        with self._lock:
+            message = self._messages[message_id]
+            del self._messages[message_id]
+            del message.sender.sent[message_id]
+            if message_id in message.receiver.read:
+                del message.receiver.read[message_id]
+            if message_id in message.receiver.unread:
+                del message.receiver.unread[message_id]
