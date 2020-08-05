@@ -14,6 +14,7 @@ storage_manager = data_model.StorageManager()
 
 @app.route('/api/v1/messages/<message_id>', methods=['GET'])
 def read_message(message_id: str):
+    '''Return message by id and mark it as read.'''
     try:
         message = storage_manager.read_message(message_id)
     except KeyError:
@@ -23,6 +24,7 @@ def read_message(message_id: str):
 
 @app.route('/api/v1/messages/<message_id>', methods=['DELETE'])
 def delete_message(message_id: str):
+    '''Delete the message with the given id.'''
     try:
         storage_manager.delete_message(message_id)
     except KeyError:
@@ -32,6 +34,7 @@ def delete_message(message_id: str):
 
 @app.route('/api/v1/messages', methods=['GET'])
 def read_all():
+    '''Return all messages for the given user id.'''
     user_id = flask.request.args.get('user_id')
     if not user_id:
         return flask.make_response('user_id must be specified', 400)
@@ -54,6 +57,7 @@ def read_all():
 
 @app.route('/api/v1/messages', methods=['POST'])
 def write_message():
+    '''Create a message'''
     data = flask.request.json
     if not data:
         return flask.make_response('missing request json data', 400)
