@@ -1,0 +1,62 @@
+{
+  "id": "f9ff39d1-c7ca-45d8-8f5a-2e8cb21c248d",
+  "name": "dorolo",
+  "timestamp": 1596661353589,
+  "requests": [
+    {
+      "id": "58bea643-4ee5-4aee-bb01-af9c00d6cb91",
+      "data": [],
+      "description": "Return all messages for the given user id.",
+      "headers": "",
+      "method": "GET",
+      "name": "Get all messages",
+      "time": 1596661353589,
+      "url": "{{base_url}}/api/v1/messages",
+      "collectionId": "f9ff39d1-c7ca-45d8-8f5a-2e8cb21c248d",
+      "dataMode": "params"
+    },
+    {
+      "id": "36feed33-9ad7-4a3e-aa24-53eb5a71b2ca",
+      "data": [],
+      "description": "Return message by id and mark it as read.",
+      "headers": "",
+      "method": "GET",
+      "name": "Get message",
+      "time": 1596661353589,
+      "url": "{{base_url}}/api/v1/messages/{{message_id}}",
+      "collectionId": "f9ff39d1-c7ca-45d8-8f5a-2e8cb21c248d",
+      "dataMode": "params"
+    },
+    {
+      "id": "b7c87fc7-ba16-4138-93dd-ef79969d0855",
+      "data": [],
+      "description": "Create a message",
+      "headers": "",
+      "method": "POST",
+      "name": "Create message",
+      "time": 1596661353589,
+      "url": "{{base_url}}/api/v1/messages",
+      "collectionId": "f9ff39d1-c7ca-45d8-8f5a-2e8cb21c248d",
+      "dataMode": "params"
+    },
+    {
+      "id": "58033675-6963-4eee-956e-dd6ade8c2bb3",
+      "data": [],
+      "description": "Delete the message with the given id.",
+      "headers": "",
+      "method": "DELETE",
+      "name": "Delete message",
+      "time": 1596661353590,
+      "url": "{{base_url}}/api/v1/messages/{{message_id}}",
+      "collectionId": "f9ff39d1-c7ca-45d8-8f5a-2e8cb21c248d",
+      "dataMode": "params"
+    }
+  ],
+  "order": [
+    "58bea643-4ee5-4aee-bb01-af9c00d6cb91",
+    "36feed33-9ad7-4a3e-aa24-53eb5a71b2ca",
+    "b7c87fc7-ba16-4138-93dd-ef79969d0855",
+    "58033675-6963-4eee-956e-dd6ade8c2bb3"
+  ],
+  "folders": []
+}
