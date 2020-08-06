@@ -72,10 +72,10 @@ def write_message():
         if arg not in data:
             return flask.make_response(f'missing required arg: {arg}', 400)
     try:
-        storage_manager.create_message(**data)
+        message = storage_manager.create_message(**data)
     except KeyError:
         return flask.make_response('invalid message params', 404)
-    return flask.make_response('', 201)
+    return flask.jsonify({'message_id': message.message_id})
 
 
 def main():

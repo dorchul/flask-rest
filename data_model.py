@@ -15,9 +15,6 @@ class User:
         self.unread = {}
         self.read = {}
 
-    def to_dict(self) -> Dict[str, str]:
-        return {'id': self.user_id}
-
 
 class Message:
 
@@ -33,6 +30,7 @@ class Message:
 
     def to_dict(self) -> Dict[str, str]:
         return {
+            'message_id': self.message_id,
             'sender': self.sender.user_id,
             'receiver': self.receiver.user_id,
             'subject': self.subject,
