@@ -1,75 +1,250 @@
 {
-  "id": "c46adac7-b298-4bc5-b40e-7154fda29923",
-  "name": "Example Collection",
-  "timestamp": 1596739783071,
-  "requests": [
-    {
-      "id": "372565d1-dffb-45ae-8ff8-3f61184d2153",
-      "data": [],
-      "description": "Return all messages for the given user id.",
-      "headers": "",
-      "method": "GET",
-      "name": "Get all messages",
-      "time": 1596739783071,
-      "url": "{{base_url}}/api/v1/messages?user_id={{user_id}}",
-      "collectionId": "c46adac7-b298-4bc5-b40e-7154fda29923",
-      "dataMode": "params"
-    },
-    {
-      "id": "148d777e-9826-4e77-af60-bac9dabac6eb",
-      "data": [],
-      "description": "Return message by id and mark it as read.",
-      "headers": "",
-      "method": "GET",
-      "name": "Get message",
-      "time": 1596739783071,
-      "url": "{{base_url}}/api/v1/messages/{{message_id}}",
-      "collectionId": "c46adac7-b298-4bc5-b40e-7154fda29923",
-      "dataMode": "params"
-    },
-    {
-      "id": "b3d6ce22-cc16-4bca-a409-191fbd22aad2",
-      "data": [],
-      "description": "Create a message.",
-      "headers": "",
-      "method": "POST",
-      "name": "Create message",
-      "time": 1596739783071,
-      "url": "{{base_url}}/api/v1/messages",
-      "collectionId": "c46adac7-b298-4bc5-b40e-7154fda29923",
-      "dataMode": "params"
-    },
-    {
-      "id": "392d2f0a-2996-41c8-bbaf-4b982f5f1c79",
-      "data": [],
-      "description": "Create a new user and return its id.",
-      "headers": "",
-      "method": "POST",
-      "name": "Create user",
-      "time": 1596739783071,
-      "url": "{{base_url}}/api/v1/users",
-      "collectionId": "c46adac7-b298-4bc5-b40e-7154fda29923",
-      "dataMode": "params"
-    },
-    {
-      "id": "653bc810-c2af-4955-b29c-fac170241dd0",
-      "data": [],
-      "description": "Delete the message with the given id.",
-      "headers": "",
-      "method": "DELETE",
-      "name": "Delete message",
-      "time": 1596739783071,
-      "url": "{{base_url}}/api/v1/messages/{{message_id}}",
-      "collectionId": "c46adac7-b298-4bc5-b40e-7154fda29923",
-      "dataMode": "params"
-    }
-  ],
-  "order": [
-    "372565d1-dffb-45ae-8ff8-3f61184d2153",
-    "148d777e-9826-4e77-af60-bac9dabac6eb",
-    "b3d6ce22-cc16-4bca-a409-191fbd22aad2",
-    "392d2f0a-2996-41c8-bbaf-4b982f5f1c79",
-    "653bc810-c2af-4955-b29c-fac170241dd0"
-  ],
-  "folders": []
+	"info": {
+		"_postman_id": "7fc3eb8e-e2d1-47e2-80b6-7cc6ca5e8795",
+		"name": "flask-ex",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [],
+					"options": {
+						"formdata": {}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/users",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				},
+				"description": "Create a new user and return its id."
+			},
+			"response": []
+		},
+		{
+			"name": "Create message",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"sender_id\": \"63f402\",\r\n    \"receiver_id\": \"2c628c\",\r\n    \"subject\": \"my subject\",\r\n    \"body\": \"my body\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/messages",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"messages"
+					]
+				},
+				"description": "Create a message"
+			},
+			"response": [
+				{
+					"name": "Create message",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"sender_id\": \"47bf4e\",\r\n    \"reciever_id\": \"47bf4e\",\r\n    \"subject\": \"subject\",\r\n    \"body\": \"body\"\r\n}",
+							"options": {
+								"formdata": {},
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/messages",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"messages"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Get all messages",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/messages?user_id={{user_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"messages"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "{{user_id}}"
+						}
+					]
+				},
+				"description": "Return all messages for the given user id."
+			},
+			"response": [
+				{
+					"name": "Get all messages from user_id 47bf4e",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/messages?user_id=47bf4e",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"messages"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "47bf4e"
+								}
+							]
+						}
+					},
+					"status": "BAD REQUEST",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "25"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/1.0.1 Python/3.6.11"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 05 Aug 2020 21:18:03 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\r\n    \"sent\": [],\r\n    \"read\": [],\r\n    \"unread\": [\r\n        {\r\n        \"message_id\": \"message_id\",\r\n        \"creation_date\": \"creation_date\",\r\n        \"sender_id\": \"sender_id\",\r\n        \"reciever_id\": \"reciever_id\",\r\n        \"subject\": \"subject\",\r\n        \"body\": \"body\"\r\n        }\r\n    ]\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Get message",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/messages/{{message_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"messages",
+						"{{message_id}}"
+					]
+				},
+				"description": "Return message by id and mark it as read."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete message",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/messages/{{message_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"messages",
+						"{{message_id}}"
+					]
+				},
+				"description": "Delete the message with the given id."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "40dfeec8-2df1-4fb9-9f2f-42536ae8cb53",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "5aa4404a-604c-436f-a4e1-c6b3eb39780d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "715ccbf4-7226-492e-b593-df5f15779718",
+			"key": "base_url",
+			"value": "https://my-flask-ex.ew.r.appspot.com/"
+		}
+	],
+	"protocolProfileBehavior": {}
 }
