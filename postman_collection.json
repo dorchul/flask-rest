@@ -11,7 +11,7 @@
       "method": "GET",
       "name": "Get all messages",
       "time": 1596739783071,
-      "url": "{{base_url}}/api/v1/messages",
+      "url": "{{base_url}}/api/v1/messages?user_id={{user_id}}",
       "collectionId": "c46adac7-b298-4bc5-b40e-7154fda29923",
       "dataMode": "params"
     },
