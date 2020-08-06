@@ -12,13 +12,20 @@ app = flask.Flask(__name__)
 storage_manager = data_model.StorageManager()
 
 
+@app.route('/api/v1/users', methods=['POST'])
+def create_user():
+    '''Create a new user and return its id.'''
+    user = storage_manager.create_user()
+    return flask.jsonify({'user_id': user.user_id})
+
+
 @app.route('/api/v1/messages/<message_id>', methods=['GET'])
 def read_message(message_id: str):
     '''Return message by id and mark it as read.'''
     try:
         message = storage_manager.read_message(message_id)
     except KeyError:
-        return flask.make_response('unknown message_id', 400)
+        return flask.make_response('unknown message_id', 404)
     return flask.jsonify(message.to_dict())
 
 
@@ -28,7 +35,7 @@ def delete_message(message_id: str):
     try:
         storage_manager.delete_message(message_id)
     except KeyError:
-        return flask.make_response('unknown message_id', 400)
+        return flask.make_response('unknown message_id', 404)
     return flask.make_response('', 200)
 
 
@@ -41,7 +48,7 @@ def read_all():
     try:
         user = storage_manager.get_user(user_id)
     except KeyError:
-        return flask.make_response('unknown user_id', 400)
+        return flask.make_response('unknown user_id', 404)
     # for message in user.unread:
     #     storage_manager.read_message(message.message_id)
     messages = {
@@ -57,7 +64,7 @@ def read_all():
 
 @app.route('/api/v1/messages', methods=['POST'])
 def write_message():
-    '''Create a message'''
+    '''Create a message.'''
     data = flask.request.json
     if not data:
         return flask.make_response('missing request json data', 400)
@@ -67,14 +74,8 @@ def write_message():
     try:
         storage_manager.create_message(**data)
     except KeyError:
-        return flask.make_response('invalid message params', 400)
-    return flask.make_response('', 200)
-
-
-def _add_debug_data():
-    user1 = storage_manager.create_user()
-    user2 = storage_manager.create_user()
-    storage_manager.create_message(user1.user_id, user2.user_id, 'sub', 'body')
+        return flask.make_response('invalid message params', 404)
+    return flask.make_response('', 201)
 
 
 def main():
@@ -91,10 +92,7 @@ def main():
         handler.setFormatter(logging.Formatter(_LOG_FMT))
     logger.setLevel(getattr(logging, args.log_level.upper(), None))
     app.logger.setLevel(getattr(logging, args.log_level.upper(), None))
-
-    if args.debug:
-        app.debug = True
-        _add_debug_data()
+    app.debug = True
 
     try:
         app.run('localhost', port='8080', debug=args.debug)
