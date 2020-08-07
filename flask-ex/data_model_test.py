@@ -51,5 +51,3 @@ def test_delete_message():
     assert len(message.receiver.unread) == 0
     with pytest.raises(KeyError):
         manager.read_message(message.message_id)
-
-        
