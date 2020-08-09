@@ -85,5 +85,5 @@ class StorageManager:
             del message.sender.sent[message_id]
             if message_id in message.receiver.read:
                 del message.receiver.read[message_id]
-            if message_id in message.receiver.unread:
+            elif message_id in message.receiver.unread:
                 del message.receiver.unread[message_id]
