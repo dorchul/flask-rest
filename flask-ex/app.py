@@ -49,8 +49,6 @@ def read_all():
         user = storage_manager.get_user(user_id)
     except KeyError:
         return flask.make_response('unknown user_id', 404)
-    # for message in user.unread:
-    #     storage_manager.read_message(message.message_id)
     messages = {
         'sent': [m.to_dict() for m in user.sent.values()],
         'read': [],
