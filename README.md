@@ -1,2 +1,2 @@
 ## flask-rest
-Simple Flask REST API for handling messages betweem users.</br>
+Simple Flask REST API for handling messages between users.</br>
